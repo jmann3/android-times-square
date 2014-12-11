@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/sample/src/androidTest/res"/><source path="/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/sample/build/generated/res/rs/test/debug"/><source path="/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/sample/build/generated/res/generated/test/debug"/></dataSet><mergedItems/></merger>

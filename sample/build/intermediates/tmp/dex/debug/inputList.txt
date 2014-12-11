@@ -1,0 +1,2 @@
+/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/sample/build/intermediates/classes/debug
+/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/sample/build/intermediates/pre-dexed/debug/classes-a634c7263a7b24dbfc00095f476e05fac2cf5c7b.jar
