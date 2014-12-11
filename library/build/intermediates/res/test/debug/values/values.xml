@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <color name="calendar_active_month_bg">#fff5f7f9</color>
     <color name="calendar_bg">#ffffffff</color>

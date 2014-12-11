@@ -11,8 +11,12 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/calendar_month_topmargin"
+      android:paddingTop="5dp"
+      android:paddingBottom="5dp"
       android:layout_marginBottom="@dimen/calendar_month_title_bottommargin"
-      android:gravity="center_horizontal"
+      android:paddingLeft="10dp"
+      android:textColor="@android:color/white"
+      android:background="@android:color/black"
       style="@style/CalendarTitle"
       />
   <com.squareup.timessquare.CalendarGridView
@@ -68,4 +72,4 @@
     <include layout="@layout/week"/>
     <include layout="@layout/week"/>
   </com.squareup.timessquare.CalendarGridView>
-</com.squareup.timessquare.MonthView><!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/src/main/res/layout/month.xml --><!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/sample/build/intermediates/exploded-aar/sample/library/unspecified/res/layout/month.xml -->
+</com.squareup.timessquare.MonthView><!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/src/main/res/layout/month.xml --><!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/sample/build/intermediates/exploded-aar/EnterpriseCalendarRepo/library/unspecified/res/layout/month.xml -->

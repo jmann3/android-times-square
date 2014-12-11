@@ -40,4 +40,4 @@
       android:layout_height="wrap_content"
       style="@style/CalendarCell.CalendarDate"
       />
-</com.squareup.timessquare.CalendarRowView><!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/src/main/res/layout/week.xml --><!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/sample/build/intermediates/exploded-aar/sample/library/unspecified/res/layout/week.xml -->
+</com.squareup.timessquare.CalendarRowView><!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/src/main/res/layout/week.xml --><!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/sample/build/intermediates/exploded-aar/EnterpriseCalendarRepo/library/unspecified/res/layout/week.xml -->

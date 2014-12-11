@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/src/main/res/values/colors.xml -->
+    <!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="calendar_active_month_bg">#fff5f7f9</color>
     <color name="calendar_bg">#ffffffff</color>
@@ -15,19 +15,19 @@
     <color name="calendar_text_unselectable">#7f778088</color>
     <declare-styleable name="CalendarPickerView"><attr name="android:background"/><attr format="color" name="dividerColor"/><attr format="reference" name="dayBackground"/><attr format="color" name="dayTextColor"/><attr format="color" name="titleTextColor"/><attr format="boolean" name="displayHeader"/><attr format="color" name="headerTextColor"/></declare-styleable>
     <declare-styleable name="calendar_cell"><attr format="boolean" name="state_selectable"/><attr format="boolean" name="state_current_month"/><attr format="boolean" name="state_today"/><attr format="boolean" name="state_range_first"/><attr format="boolean" name="state_range_middle"/><attr format="boolean" name="state_range_last"/><attr format="boolean" name="state_highlighted"/></declare-styleable>
-    <!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="calendar_day_headers_paddingbottom">4dp</dimen>
     <dimen name="calendar_month_title_bottommargin">4dp</dimen>
     <dimen name="calendar_month_topmargin">16dp</dimen>
     <dimen name="calendar_text_medium">18sp</dimen>
     <dimen name="calendar_text_small">14sp</dimen>
-    <!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="day_name_format">EEE</string>
     <string name="invalid_date">Date must be between %1$s and %2$s.</string>
     <string name="month_name_format">MMMM yyyy</string>
-    <!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="CalendarCell">
     <item name="android:layout_width">0dp</item>

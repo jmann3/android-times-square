@@ -10,4 +10,4 @@
     <item app:state_selectable="false" android:color="@color/custom_text_inactive" />
     <item android:color="@color/custom_background_today"/>
 </selector>
-<!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/sample/src/main/res/color/custom_calendar_text_selector.xml -->
+<!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/sample/src/main/res/color/custom_calendar_text_selector.xml -->

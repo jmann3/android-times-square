@@ -68,4 +68,4 @@
     <include layout="@layout/week"/>
     <include layout="@layout/week"/>
   </com.squareup.timessquare.CalendarGridView>
-</com.squareup.timessquare.MonthView><!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/src/main/res/layout/month.xml --><!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/build/intermediates/bundles/debug/res/layout/month.xml -->
+</com.squareup.timessquare.MonthView><!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/src/main/res/layout/month.xml --><!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/build/intermediates/bundles/debug/res/layout/month.xml -->

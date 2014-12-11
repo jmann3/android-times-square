@@ -10,4 +10,4 @@
   <item app:state_selectable="false" android:color="@color/calendar_text_unselectable" />
   <item android:color="@color/calendar_text_active"/>
 </selector>
-<!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/src/main/res/color/calendar_text_selector.xml --><!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/library/build/intermediates/bundles/debug/res/color/calendar_text_selector.xml -->
+<!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/src/main/res/color/calendar_text_selector.xml --><!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/build/intermediates/bundles/debug/res/color/calendar_text_selector.xml -->

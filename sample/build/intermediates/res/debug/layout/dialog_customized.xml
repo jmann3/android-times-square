@@ -16,4 +16,4 @@
         app:titleTextColor="@color/custom_calendar_text_selector"
         app:headerTextColor="@color/custom_header_text"
         />
-<!-- From: file:/Users/jmann/Projects/Android/Enterprise/Prototypes/sample/sample/src/main/res/layout/dialog_customized.xml -->
+<!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/sample/src/main/res/layout/dialog_customized.xml -->
