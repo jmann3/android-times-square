@@ -152,7 +152,8 @@ containing a value of this type.
         public static final int bg_circle_today=0x7f020001;
         public static final int calendar_bg_selector=0x7f020002;
         public static final int custom_calendar_bg_selector=0x7f020003;
-        public static final int icon=0x7f020004;
+        public static final int dongfeng=0x7f020004;
+        public static final int icon=0x7f020005;
     }
     public static final class id {
         public static final int button_customized=0x7f080009;

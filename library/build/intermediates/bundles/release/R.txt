@@ -31,6 +31,7 @@ int dimen calendar_month_topmargin 0x7f050002
 int dimen calendar_text_medium 0x7f050003
 int dimen calendar_text_small 0x7f050004
 int drawable calendar_bg_selector 0x7f020000
+int drawable dongfeng 0x7f020001
 int id calendar_grid 0x7f080002
 int id closed_txt 0x7f080001
 int id title 0x7f080000

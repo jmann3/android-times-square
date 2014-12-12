@@ -138,6 +138,7 @@ containing a value of this type.
     }
     public static final class drawable {
         public static int calendar_bg_selector=0x7f020000;
+        public static int dongfeng=0x7f020001;
     }
     public static final class id {
         public static int calendar_grid=0x7f080002;

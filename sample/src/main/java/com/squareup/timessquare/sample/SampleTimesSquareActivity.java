@@ -37,7 +37,7 @@ public class SampleTimesSquareActivity extends Activity {
     lastYear.add(Calendar.YEAR, -1);
 
     calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
-    calendar.init(lastYear.getTime(), nextYear.getTime()) //
+    calendar.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()) //
         .inMode(SelectionMode.SINGLE) //
         .withSelectedDate(new Date());
 
@@ -55,7 +55,7 @@ public class SampleTimesSquareActivity extends Activity {
         range.setEnabled(true);
         displayOnly.setEnabled(true);
 
-        calendar.init(lastYear.getTime(), nextYear.getTime()) //
+        calendar.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()) //
             .inMode(SelectionMode.SINGLE) //
             .withSelectedDate(new Date());
       }
@@ -75,7 +75,7 @@ public class SampleTimesSquareActivity extends Activity {
           today.add(Calendar.DAY_OF_MONTH, 3);
           dates.add(today.getTime());
         }
-        calendar.init(new Date(), nextYear.getTime()) //
+        calendar.init(new Date(), nextYear.getTime(), new ArrayList<Date>()) //
             .inMode(SelectionMode.MULTIPLE) //
             .withSelectedDates(dates);
       }
@@ -91,11 +91,19 @@ public class SampleTimesSquareActivity extends Activity {
 
         Calendar today = Calendar.getInstance();
         ArrayList<Date> dates = new ArrayList<Date>();
-        today.add(Calendar.DATE, 3);
-        dates.add(today.getTime());
-        today.add(Calendar.DATE, 5);
-        dates.add(today.getTime());
-        calendar.init(new Date(), nextYear.getTime()) //
+//        today.add(Calendar.DATE, 3);
+//        dates.add(today.getTime());
+//        today.add(Calendar.DATE, 5);
+//        dates.add(today.getTime());
+        ArrayList<Date> daysClosed = new ArrayList<Date>();
+          today.add(Calendar.DATE, 6);
+          daysClosed.add(today.getTime());
+          today.add(Calendar.DATE, 24);
+          daysClosed.add(today.getTime());
+          today.add(Calendar.DATE, -30);
+
+
+        calendar.init(new Date(), nextYear.getTime(), daysClosed) //
             .inMode(SelectionMode.RANGE) //
             .withSelectedDates(dates);
       }
@@ -109,7 +117,7 @@ public class SampleTimesSquareActivity extends Activity {
         range.setEnabled(true);
         displayOnly.setEnabled(false);
 
-        calendar.init(new Date(), nextYear.getTime()) //
+        calendar.init(new Date(), nextYear.getTime(), new ArrayList<Date>()) //
             .inMode(SelectionMode.SINGLE) //
             .withSelectedDate(new Date())
             .displayOnly();
@@ -119,7 +127,7 @@ public class SampleTimesSquareActivity extends Activity {
     dialog.setOnClickListener(new OnClickListener() {
       @Override public void onClick(View view) {
         dialogView = (CalendarPickerView) getLayoutInflater().inflate(R.layout.dialog, null, false);
-        dialogView.init(lastYear.getTime(), nextYear.getTime()) //
+        dialogView.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()) //
             .withSelectedDate(new Date());
         theDialog =
             new AlertDialog.Builder(SampleTimesSquareActivity.this).setTitle("I'm a dialog!")
@@ -146,7 +154,7 @@ public class SampleTimesSquareActivity extends Activity {
       public void onClick(View view) {
         dialogView = (CalendarPickerView) getLayoutInflater() //
             .inflate(R.layout.dialog_customized, null, false);
-        dialogView.init(lastYear.getTime(), nextYear.getTime()).withSelectedDate(new Date());
+        dialogView.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()).withSelectedDate(new Date());
         theDialog =
             new AlertDialog.Builder(SampleTimesSquareActivity.this).setTitle("Pimp my calendar !")
                 .setView(dialogView)

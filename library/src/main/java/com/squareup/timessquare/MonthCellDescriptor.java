@@ -15,18 +15,20 @@ class MonthCellDescriptor {
   private final boolean isCurrentMonth;
   private boolean isSelected;
   private final boolean isToday;
+  private final boolean isClosed;
   private final boolean isSelectable;
   private boolean isHighlighted;
   private RangeState rangeState;
 
   MonthCellDescriptor(Date date, boolean currentMonth, boolean selectable, boolean selected,
-      boolean today, boolean highlighted, int value, RangeState rangeState) {
+      boolean today, boolean closed, boolean highlighted, int value, RangeState rangeState) {
     this.date = date;
     isCurrentMonth = currentMonth;
     isSelectable = selectable;
     isHighlighted = highlighted;
     isSelected = selected;
     isToday = today;
+    isClosed = closed;
     this.value = value;
     this.rangeState = rangeState;
   }
@@ -62,6 +64,8 @@ class MonthCellDescriptor {
   public boolean isToday() {
     return isToday;
   }
+
+  public boolean isClosed() {return isClosed; }
 
   public RangeState getRangeState() {
     return rangeState;

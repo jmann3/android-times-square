@@ -45,7 +45,8 @@ int drawable bg_circle_selected 0x7f020000
 int drawable bg_circle_today 0x7f020001
 int drawable calendar_bg_selector 0x7f020002
 int drawable custom_calendar_bg_selector 0x7f020003
-int drawable icon 0x7f020004
+int drawable dongfeng 0x7f020004
+int drawable icon 0x7f020005
 int id button_customized 0x7f080009
 int id button_dialog 0x7f080008
 int id button_display_only 0x7f080007
