@@ -14,10 +14,11 @@ public final class R {
 		public static final int dividerColor = 0x7f010000;
 		public static final int headerTextColor = 0x7f010004;
 		public static final int state_current_month = 0x7f010006;
-		public static final int state_highlighted = 0x7f01000b;
-		public static final int state_range_first = 0x7f010008;
-		public static final int state_range_last = 0x7f01000a;
-		public static final int state_range_middle = 0x7f010009;
+		public static final int state_day_closed = 0x7f010008;
+		public static final int state_highlighted = 0x7f01000c;
+		public static final int state_range_first = 0x7f010009;
+		public static final int state_range_last = 0x7f01000b;
+		public static final int state_range_middle = 0x7f01000a;
 		public static final int state_selectable = 0x7f010005;
 		public static final int state_today = 0x7f010007;
 	}
@@ -77,12 +78,13 @@ public final class R {
 		public static final int CalendarPickerView_displayHeader = 4;
 		public static final int CalendarPickerView_dividerColor = 1;
 		public static final int CalendarPickerView_headerTextColor = 5;
-		public static final int[] calendar_cell = { 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b };
+		public static final int[] calendar_cell = { 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c };
 		public static final int calendar_cell_state_current_month = 1;
-		public static final int calendar_cell_state_highlighted = 6;
-		public static final int calendar_cell_state_range_first = 3;
-		public static final int calendar_cell_state_range_last = 5;
-		public static final int calendar_cell_state_range_middle = 4;
+		public static final int calendar_cell_state_day_closed = 3;
+		public static final int calendar_cell_state_highlighted = 7;
+		public static final int calendar_cell_state_range_first = 4;
+		public static final int calendar_cell_state_range_last = 6;
+		public static final int calendar_cell_state_range_middle = 5;
 		public static final int calendar_cell_state_selectable = 0;
 		public static final int calendar_cell_state_today = 2;
 	}

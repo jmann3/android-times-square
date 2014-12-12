@@ -21,6 +21,9 @@
   <item app:state_today="true">
     <color android:color="@color/calendar_bg"/>
   </item>
+  <item app:state_day_closed="true">
+    <color android:color="@color/not_available_background"/>
+  </item>
   <item>
     <color android:color="@color/calendar_active_month_bg"/>
   </item>

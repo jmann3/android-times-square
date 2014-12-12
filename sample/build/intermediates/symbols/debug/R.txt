@@ -4,10 +4,11 @@ int attr displayHeader 0x7f010003
 int attr dividerColor 0x7f010000
 int attr headerTextColor 0x7f010004
 int attr state_current_month 0x7f010006
-int attr state_highlighted 0x7f01000b
-int attr state_range_first 0x7f010008
-int attr state_range_last 0x7f01000a
-int attr state_range_middle 0x7f010009
+int attr state_day_closed 0x7f010008
+int attr state_highlighted 0x7f01000c
+int attr state_range_first 0x7f010009
+int attr state_range_last 0x7f01000b
+int attr state_range_middle 0x7f01000a
 int attr state_selectable 0x7f010005
 int attr state_today 0x7f010007
 int color calendar_active_month_bg 0x7f040000
@@ -78,11 +79,12 @@ int styleable CalendarPickerView_dayTextColor 3
 int styleable CalendarPickerView_displayHeader 4
 int styleable CalendarPickerView_dividerColor 1
 int styleable CalendarPickerView_headerTextColor 5
-int[] styleable calendar_cell { 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b }
+int[] styleable calendar_cell { 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c }
 int styleable calendar_cell_state_current_month 1
-int styleable calendar_cell_state_highlighted 6
-int styleable calendar_cell_state_range_first 3
-int styleable calendar_cell_state_range_last 5
-int styleable calendar_cell_state_range_middle 4
+int styleable calendar_cell_state_day_closed 3
+int styleable calendar_cell_state_highlighted 7
+int styleable calendar_cell_state_range_first 4
+int styleable calendar_cell_state_range_last 6
+int styleable calendar_cell_state_range_middle 5
 int styleable calendar_cell_state_selectable 0
 int styleable calendar_cell_state_today 2

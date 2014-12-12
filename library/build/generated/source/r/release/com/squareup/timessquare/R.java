@@ -63,7 +63,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_highlighted=0x7f01000b;
+        public static int state_day_closed=0x7f010008;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -71,7 +71,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_range_first=0x7f010008;
+        public static int state_highlighted=0x7f01000c;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -79,7 +79,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_range_last=0x7f01000a;
+        public static int state_range_first=0x7f010009;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -87,7 +87,15 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_range_middle=0x7f010009;
+        public static int state_range_last=0x7f01000b;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int state_range_middle=0x7f01000a;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -260,6 +268,7 @@ containing a value of this type.
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
            <tr><td><code>{@link #calendar_cell_state_current_month com.squareup.timessquare:state_current_month}</code></td><td></td></tr>
+           <tr><td><code>{@link #calendar_cell_state_day_closed com.squareup.timessquare:state_day_closed}</code></td><td></td></tr>
            <tr><td><code>{@link #calendar_cell_state_highlighted com.squareup.timessquare:state_highlighted}</code></td><td></td></tr>
            <tr><td><code>{@link #calendar_cell_state_range_first com.squareup.timessquare:state_range_first}</code></td><td></td></tr>
            <tr><td><code>{@link #calendar_cell_state_range_last com.squareup.timessquare:state_range_last}</code></td><td></td></tr>
@@ -268,6 +277,7 @@ containing a value of this type.
            <tr><td><code>{@link #calendar_cell_state_today com.squareup.timessquare:state_today}</code></td><td></td></tr>
            </table>
            @see #calendar_cell_state_current_month
+           @see #calendar_cell_state_day_closed
            @see #calendar_cell_state_highlighted
            @see #calendar_cell_state_range_first
            @see #calendar_cell_state_range_last
@@ -277,7 +287,7 @@ containing a value of this type.
          */
         public static final int[] calendar_cell = {
             0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008,
-            0x7f010009, 0x7f01000a, 0x7f01000b
+            0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c
         };
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_current_month}
@@ -294,6 +304,20 @@ containing a value of this type.
         */
         public static int calendar_cell_state_current_month = 1;
         /**
+          <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_day_closed}
+          attribute's value can be found in the {@link #calendar_cell} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.squareup.timessquare:state_day_closed
+        */
+        public static int calendar_cell_state_day_closed = 3;
+        /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_highlighted}
           attribute's value can be found in the {@link #calendar_cell} array.
 
@@ -306,7 +330,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_highlighted
         */
-        public static int calendar_cell_state_highlighted = 6;
+        public static int calendar_cell_state_highlighted = 7;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_range_first}
           attribute's value can be found in the {@link #calendar_cell} array.
@@ -320,7 +344,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_range_first
         */
-        public static int calendar_cell_state_range_first = 3;
+        public static int calendar_cell_state_range_first = 4;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_range_last}
           attribute's value can be found in the {@link #calendar_cell} array.
@@ -334,7 +358,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_range_last
         */
-        public static int calendar_cell_state_range_last = 5;
+        public static int calendar_cell_state_range_last = 6;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_range_middle}
           attribute's value can be found in the {@link #calendar_cell} array.
@@ -348,7 +372,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:state_range_middle
         */
-        public static int calendar_cell_state_range_middle = 4;
+        public static int calendar_cell_state_range_middle = 5;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_selectable}
           attribute's value can be found in the {@link #calendar_cell} array.

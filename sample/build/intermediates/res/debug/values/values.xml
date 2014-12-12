@@ -30,7 +30,7 @@
     <eat-comment/>
     <color name="transparent">#00000000</color>
     <declare-styleable name="CalendarPickerView"><attr name="android:background"/><attr format="color" name="dividerColor"/><attr format="reference" name="dayBackground"/><attr format="color" name="dayTextColor"/><attr format="boolean" name="displayHeader"/><attr format="color" name="headerTextColor"/></declare-styleable>
-    <declare-styleable name="calendar_cell"><attr format="boolean" name="state_selectable"/><attr format="boolean" name="state_current_month"/><attr format="boolean" name="state_today"/><attr format="boolean" name="state_range_first"/><attr format="boolean" name="state_range_middle"/><attr format="boolean" name="state_range_last"/><attr format="boolean" name="state_highlighted"/></declare-styleable>
+    <declare-styleable name="calendar_cell"><attr format="boolean" name="state_selectable"/><attr format="boolean" name="state_current_month"/><attr format="boolean" name="state_today"/><attr format="boolean" name="state_day_closed"/><attr format="boolean" name="state_range_first"/><attr format="boolean" name="state_range_middle"/><attr format="boolean" name="state_range_last"/><attr format="boolean" name="state_highlighted"/></declare-styleable>
     <!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/sample/build/intermediates/exploded-aar/EnterpriseCalendarRepo/library/unspecified/res/values/values.xml -->
     <eat-comment/>
     <dimen name="calendar_day_headers_paddingbottom">8dp</dimen>

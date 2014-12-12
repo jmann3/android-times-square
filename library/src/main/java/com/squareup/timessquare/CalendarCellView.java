@@ -17,6 +17,9 @@ public class CalendarCellView extends TextView {
   private static final int[] STATE_TODAY = {
       R.attr.state_today
   };
+  private static final int[] STATE_DAY_CLOSED = {
+      R.attr.state_day_closed
+  };
   private static final int[] STATE_HIGHLIGHTED = {
       R.attr.state_highlighted
   };
@@ -33,6 +36,7 @@ public class CalendarCellView extends TextView {
   private boolean isSelectable = false;
   private boolean isCurrentMonth = false;
   private boolean isToday = false;
+  private boolean isClosed = false;
   private boolean isHighlighted = false;
   private RangeState rangeState = RangeState.NONE;
 
@@ -53,6 +57,11 @@ public class CalendarCellView extends TextView {
 
   public void setToday(boolean isToday) {
     this.isToday = isToday;
+    refreshDrawableState();
+  }
+
+  public void setClosed(boolean isClosed) {
+    this.isClosed = isClosed;
     refreshDrawableState();
   }
 
@@ -79,6 +88,10 @@ public class CalendarCellView extends TextView {
 
     if (isToday) {
       mergeDrawableStates(drawableState, STATE_TODAY);
+    }
+
+    if (isClosed) {
+      mergeDrawableStates(drawableState, STATE_DAY_CLOSED);
     }
 
     if (isHighlighted) {
