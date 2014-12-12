@@ -5,7 +5,6 @@
     <attr name="dividerColor" format="color"/>
     <attr name="dayBackground" format="reference"/>
     <attr name="dayTextColor" format="color"/>
-    <attr name="titleTextColor" format="color"/>
     <attr name="displayHeader" format="boolean"/>
     <attr name="headerTextColor" format="color"/>
   </declare-styleable>

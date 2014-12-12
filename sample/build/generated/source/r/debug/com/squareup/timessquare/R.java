@@ -10,17 +10,16 @@ public final class R {
 	public static final class attr {
 		public static final int dayBackground = 0x7f010001;
 		public static final int dayTextColor = 0x7f010002;
-		public static final int displayHeader = 0x7f010004;
+		public static final int displayHeader = 0x7f010003;
 		public static final int dividerColor = 0x7f010000;
-		public static final int headerTextColor = 0x7f010005;
-		public static final int state_current_month = 0x7f010007;
-		public static final int state_highlighted = 0x7f01000c;
-		public static final int state_range_first = 0x7f010009;
-		public static final int state_range_last = 0x7f01000b;
-		public static final int state_range_middle = 0x7f01000a;
-		public static final int state_selectable = 0x7f010006;
-		public static final int state_today = 0x7f010008;
-		public static final int titleTextColor = 0x7f010003;
+		public static final int headerTextColor = 0x7f010004;
+		public static final int state_current_month = 0x7f010006;
+		public static final int state_highlighted = 0x7f01000b;
+		public static final int state_range_first = 0x7f010008;
+		public static final int state_range_last = 0x7f01000a;
+		public static final int state_range_middle = 0x7f010009;
+		public static final int state_selectable = 0x7f010005;
+		public static final int state_today = 0x7f010007;
 	}
 	public static final class color {
 		public static final int calendar_active_month_bg = 0x7f040000;
@@ -33,8 +32,10 @@ public final class R {
 		public static final int calendar_text_active = 0x7f040007;
 		public static final int calendar_text_inactive = 0x7f040008;
 		public static final int calendar_text_selected = 0x7f040009;
-		public static final int calendar_text_selector = 0x7f040013;
+		public static final int calendar_text_selector = 0x7f040015;
 		public static final int calendar_text_unselectable = 0x7f04000a;
+		public static final int calendar_title_background = 0x7f04000b;
+		public static final int not_available_background = 0x7f040013;
 	}
 	public static final class dimen {
 		public static final int calendar_day_headers_paddingbottom = 0x7f050000;
@@ -47,7 +48,8 @@ public final class R {
 		public static final int calendar_bg_selector = 0x7f020002;
 	}
 	public static final class id {
-		public static final int calendar_grid = 0x7f080002;
+		public static final int calendar_grid = 0x7f080003;
+		public static final int closed_txt = 0x7f080002;
 		public static final int title = 0x7f080001;
 	}
 	public static final class layout {
@@ -56,25 +58,26 @@ public final class R {
 	}
 	public static final class string {
 		public static final int day_name_format = 0x7f060001;
-		public static final int invalid_date = 0x7f060002;
-		public static final int month_name_format = 0x7f060003;
+		public static final int days_closed_txt = 0x7f060002;
+		public static final int invalid_date = 0x7f060003;
+		public static final int month_name_format = 0x7f060004;
 	}
 	public static final class style {
 		public static final int CalendarCell = 0x7f070000;
 		public static final int CalendarCell_CalendarDate = 0x7f070001;
 		public static final int CalendarCell_DayHeader = 0x7f070002;
 		public static final int CalendarTitle = 0x7f070003;
+		public static final int CalendarTitleNote = 0x7f070004;
 	}
 	public static final class styleable {
-		public static final int[] CalendarPickerView = { 0x010100d4, 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005 };
+		public static final int[] CalendarPickerView = { 0x010100d4, 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004 };
 		public static final int CalendarPickerView_android_background = 0;
 		public static final int CalendarPickerView_dayBackground = 2;
 		public static final int CalendarPickerView_dayTextColor = 3;
-		public static final int CalendarPickerView_displayHeader = 5;
+		public static final int CalendarPickerView_displayHeader = 4;
 		public static final int CalendarPickerView_dividerColor = 1;
-		public static final int CalendarPickerView_headerTextColor = 6;
-		public static final int CalendarPickerView_titleTextColor = 4;
-		public static final int[] calendar_cell = { 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c };
+		public static final int CalendarPickerView_headerTextColor = 5;
+		public static final int[] calendar_cell = { 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b };
 		public static final int calendar_cell_state_current_month = 1;
 		public static final int calendar_cell_state_highlighted = 6;
 		public static final int calendar_cell_state_range_first = 3;

@@ -29,7 +29,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int displayHeader=0x7f010004;
+        public static int displayHeader=0x7f010003;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -47,7 +47,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int headerTextColor=0x7f010005;
+        public static int headerTextColor=0x7f010004;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -55,7 +55,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_current_month=0x7f010007;
+        public static int state_current_month=0x7f010006;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -63,7 +63,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_highlighted=0x7f01000c;
+        public static int state_highlighted=0x7f01000b;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -71,7 +71,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_range_first=0x7f010009;
+        public static int state_range_first=0x7f010008;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -79,7 +79,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_range_last=0x7f01000b;
+        public static int state_range_last=0x7f01000a;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -87,7 +87,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_range_middle=0x7f01000a;
+        public static int state_range_middle=0x7f010009;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -95,7 +95,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_selectable=0x7f010006;
+        public static int state_selectable=0x7f010005;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -103,16 +103,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int state_today=0x7f010008;
-        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static int titleTextColor=0x7f010003;
+        public static int state_today=0x7f010007;
     }
     public static final class color {
         public static int calendar_active_month_bg=0x7f040000;
@@ -125,8 +116,10 @@ containing a value of this type.
         public static int calendar_text_active=0x7f040007;
         public static int calendar_text_inactive=0x7f040008;
         public static int calendar_text_selected=0x7f040009;
-        public static int calendar_text_selector=0x7f04000b;
+        public static int calendar_text_selector=0x7f04000d;
         public static int calendar_text_unselectable=0x7f04000a;
+        public static int calendar_title_background=0x7f04000b;
+        public static int not_available_background=0x7f04000c;
     }
     public static final class dimen {
         public static int calendar_day_headers_paddingbottom=0x7f050000;
@@ -139,7 +132,8 @@ containing a value of this type.
         public static int calendar_bg_selector=0x7f020000;
     }
     public static final class id {
-        public static int calendar_grid=0x7f080001;
+        public static int calendar_grid=0x7f080002;
+        public static int closed_txt=0x7f080001;
         public static int title=0x7f080000;
     }
     public static final class layout {
@@ -148,14 +142,16 @@ containing a value of this type.
     }
     public static final class string {
         public static int day_name_format=0x7f060000;
-        public static int invalid_date=0x7f060001;
-        public static int month_name_format=0x7f060002;
+        public static int days_closed_txt=0x7f060001;
+        public static int invalid_date=0x7f060002;
+        public static int month_name_format=0x7f060003;
     }
     public static final class style {
         public static int CalendarCell=0x7f070000;
         public static int CalendarCell_CalendarDate=0x7f070001;
         public static int CalendarCell_DayHeader=0x7f070002;
         public static int CalendarTitle=0x7f070003;
+        public static int CalendarTitleNote=0x7f070004;
     }
     public static final class styleable {
         /** Attributes that can be used with a CalendarPickerView.
@@ -170,7 +166,6 @@ containing a value of this type.
            <tr><td><code>{@link #CalendarPickerView_displayHeader com.squareup.timessquare:displayHeader}</code></td><td></td></tr>
            <tr><td><code>{@link #CalendarPickerView_dividerColor com.squareup.timessquare:dividerColor}</code></td><td></td></tr>
            <tr><td><code>{@link #CalendarPickerView_headerTextColor com.squareup.timessquare:headerTextColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #CalendarPickerView_titleTextColor com.squareup.timessquare:titleTextColor}</code></td><td></td></tr>
            </table>
            @see #CalendarPickerView_android_background
            @see #CalendarPickerView_dayBackground
@@ -178,11 +173,10 @@ containing a value of this type.
            @see #CalendarPickerView_displayHeader
            @see #CalendarPickerView_dividerColor
            @see #CalendarPickerView_headerTextColor
-           @see #CalendarPickerView_titleTextColor
          */
         public static final int[] CalendarPickerView = {
             0x010100d4, 0x7f010000, 0x7f010001, 0x7f010002,
-            0x7f010003, 0x7f010004, 0x7f010005
+            0x7f010003, 0x7f010004
         };
         /**
           <p>This symbol is the offset where the {@link android.R.attr#background}
@@ -228,7 +222,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:displayHeader
         */
-        public static int CalendarPickerView_displayHeader = 5;
+        public static int CalendarPickerView_displayHeader = 4;
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#dividerColor}
           attribute's value can be found in the {@link #CalendarPickerView} array.
@@ -258,22 +252,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.squareup.timessquare:headerTextColor
         */
-        public static int CalendarPickerView_headerTextColor = 6;
-        /**
-          <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#titleTextColor}
-          attribute's value can be found in the {@link #CalendarPickerView} array.
-
-
-          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.squareup.timessquare:titleTextColor
-        */
-        public static int CalendarPickerView_titleTextColor = 4;
+        public static int CalendarPickerView_headerTextColor = 5;
         /** Attributes that can be used with a calendar_cell.
            <p>Includes the following attributes:</p>
            <table>
@@ -297,8 +276,8 @@ containing a value of this type.
            @see #calendar_cell_state_today
          */
         public static final int[] calendar_cell = {
-            0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009,
-            0x7f01000a, 0x7f01000b, 0x7f01000c
+            0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008,
+            0x7f010009, 0x7f01000a, 0x7f01000b
         };
         /**
           <p>This symbol is the offset where the {@link com.squareup.timessquare.R.attr#state_current_month}

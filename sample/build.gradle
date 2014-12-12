@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.squareup.timessquare.sample"
-        minSdkVersion 8
+        minSdkVersion 11
         targetSdkVersion 17
     }
 

@@ -19,12 +19,11 @@ public class MonthView extends LinearLayout {
 
   public static MonthView create(ViewGroup parent, LayoutInflater inflater,
       DateFormat weekdayNameFormat, Listener listener, Calendar today, int dividerColor,
-      int dayBackgroundResId, int dayTextColorResId, int titleTextColor, boolean displayHeader,
+      int dayBackgroundResId, int dayTextColorResId, boolean displayHeader,
       int headerTextColor) {
     final MonthView view = (MonthView) inflater.inflate(R.layout.month, parent, false);
     view.setDividerColor(dividerColor);
     view.setDayTextColor(dayTextColorResId);
-    view.setTitleTextColor(titleTextColor);
     view.setDisplayHeader(displayHeader);
     view.setHeaderTextColor(headerTextColor);
 

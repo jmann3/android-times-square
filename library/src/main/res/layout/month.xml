@@ -6,19 +6,44 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
-  <TextView
-      android:id="@+id/title"
+  <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/calendar_month_topmargin"
-      android:paddingTop="5dp"
-      android:paddingBottom="5dp"
+      android:layout_height="40dp"
       android:layout_marginBottom="@dimen/calendar_month_title_bottommargin"
-      android:paddingLeft="10dp"
-      android:textColor="@android:color/white"
-      android:background="@android:color/black"
-      style="@style/CalendarTitle"
-      />
+      android:background="@color/calendar_title_background">
+
+      <TextView
+          android:id="@+id/title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_centerVertical="true"
+          android:layout_marginLeft="10dp"
+          android:textColor="@android:color/white"
+          style="@style/CalendarTitle" />
+
+      <View
+          android:layout_width="10dp"
+          android:layout_height="10dp"
+          android:layout_centerVertical="true"
+          android:layout_toLeftOf="@+id/closed_txt"
+          android:layout_marginRight="5dp"
+          android:background="@color/not_available_background" />
+          <!--android:background="@color/calendar_text_inactive" />-->
+
+      <TextView
+          android:id="@id/closed_txt"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:layout_centerVertical="true"
+          android:layout_marginRight="10dp"
+          android:text="@string/days_closed_txt"
+          android:textColor="@android:color/white"
+          style="@style/CalendarTitleNote" />
+
+  </RelativeLayout>
+
   <com.squareup.timessquare.CalendarGridView
       android:id="@+id/calendar_grid"
       android:layout_width="match_parent"
@@ -72,4 +97,9 @@
     <include layout="@layout/week"/>
     <include layout="@layout/week"/>
   </com.squareup.timessquare.CalendarGridView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/calendar_month_topmargin" />
+
 </com.squareup.timessquare.MonthView>
