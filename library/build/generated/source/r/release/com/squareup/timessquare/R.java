@@ -154,6 +154,7 @@ containing a value of this type.
         public static int days_closed_txt=0x7f060001;
         public static int invalid_date=0x7f060002;
         public static int month_name_format=0x7f060003;
+        public static int not_available_txt=0x7f060004;
     }
     public static final class style {
         public static int CalendarCell=0x7f070000;

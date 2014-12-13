@@ -30,6 +30,7 @@
     <string name="days_closed_txt">- Days closed</string>
     <string name="invalid_date">Date must be between %1$s and %2$s.</string>
     <string name="month_name_format">MMMM yyyy</string>
+    <string name="not_available_txt">facility is not available for rentals on %1$s</string>
     <!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="CalendarCell">

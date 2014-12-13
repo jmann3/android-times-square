@@ -63,6 +63,7 @@ public final class R {
 		public static final int days_closed_txt = 0x7f060002;
 		public static final int invalid_date = 0x7f060003;
 		public static final int month_name_format = 0x7f060004;
+		public static final int not_available_txt = 0x7f060005;
 	}
 	public static final class style {
 		public static final int CalendarCell = 0x7f070000;

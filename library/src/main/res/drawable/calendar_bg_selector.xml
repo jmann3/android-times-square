@@ -3,6 +3,9 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item app:state_day_closed="true" app:state_range_middle="false">
+        <color android:color="@color/not_available_background" />
+  </item>
   <item app:state_range_middle="true">
     <color android:color="@color/calendar_selected_range_bg"/>
   </item>
@@ -21,9 +24,7 @@
   <item app:state_today="true">
     <color android:color="@color/calendar_bg"/>
   </item>
-  <item app:state_day_closed="true">
-    <color android:color="@color/not_available_background" android:drawable="@drawable/dongfeng"/>
-  </item>
+
   <item>
     <color android:color="@color/calendar_active_month_bg"/>
   </item>

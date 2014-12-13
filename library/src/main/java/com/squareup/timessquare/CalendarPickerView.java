@@ -932,7 +932,7 @@ public class CalendarPickerView extends ListView {
       String errMessage =
 //          getResources().getString(R.string.invalid_date, fullDateFormat.format(minCal.getTime()),
 //              fullDateFormat.format(maxCal.getTime()));
-            "facility is not avaible for rentals on " + fullDateFormat.format(date);
+            getResources().getString(R.string.not_available_txt, fullDateFormat.format(date));
       Toast.makeText(getContext(), errMessage, Toast.LENGTH_SHORT).show();
     }
   }

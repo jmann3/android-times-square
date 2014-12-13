@@ -4,6 +4,7 @@ package com.squareup.timessquare;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.TextView;
 import com.squareup.timessquare.MonthCellDescriptor.RangeState;
 
@@ -67,6 +68,7 @@ public class CalendarCellView extends TextView {
 
   public void setRangeState(MonthCellDescriptor.RangeState rangeState) {
     this.rangeState = rangeState;
+
     refreshDrawableState();
   }
 
@@ -76,7 +78,7 @@ public class CalendarCellView extends TextView {
   }
 
   @Override protected int[] onCreateDrawableState(int extraSpace) {
-    final int[] drawableState = super.onCreateDrawableState(extraSpace + 5);
+    final int[] drawableState = super.onCreateDrawableState(extraSpace + 8);
 
     if (isSelectable) {
       mergeDrawableStates(drawableState, STATE_SELECTABLE);

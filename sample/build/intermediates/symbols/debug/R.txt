@@ -68,6 +68,7 @@ int string day_name_format 0x7f060001
 int string days_closed_txt 0x7f060002
 int string invalid_date 0x7f060003
 int string month_name_format 0x7f060004
+int string not_available_txt 0x7f060005
 int style CalendarCell 0x7f070000
 int style CalendarCell_CalendarDate 0x7f070001
 int style CalendarCell_DayHeader 0x7f070002
