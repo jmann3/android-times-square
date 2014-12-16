@@ -13,9 +13,13 @@ import android.widget.Button;
 import android.widget.Toast;
 import com.squareup.timessquare.CalendarPickerView;
 import com.squareup.timessquare.CalendarPickerView.SelectionMode;
+import com.squareup.timessquare.StartDay;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Locale;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -37,7 +41,8 @@ public class SampleTimesSquareActivity extends Activity {
     lastYear.add(Calendar.YEAR, -1);
 
     calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
-    calendar.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()) //
+
+    calendar.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday) //
         .inMode(SelectionMode.SINGLE) //
         .withSelectedDate(new Date());
 
@@ -55,7 +60,7 @@ public class SampleTimesSquareActivity extends Activity {
         range.setEnabled(true);
         displayOnly.setEnabled(true);
 
-        calendar.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()) //
+        calendar.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday) //
             .inMode(SelectionMode.SINGLE) //
             .withSelectedDate(new Date());
       }
@@ -75,7 +80,7 @@ public class SampleTimesSquareActivity extends Activity {
           today.add(Calendar.DAY_OF_MONTH, 3);
           dates.add(today.getTime());
         }
-        calendar.init(new Date(), nextYear.getTime(), new ArrayList<Date>()) //
+        calendar.init(new Date(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday) //
             .inMode(SelectionMode.MULTIPLE) //
             .withSelectedDates(dates);
       }
@@ -103,7 +108,7 @@ public class SampleTimesSquareActivity extends Activity {
           today.add(Calendar.DATE, -30);
 
 
-        calendar.init(new Date(), nextYear.getTime(), daysClosed) //
+        calendar.init(new Date(), nextYear.getTime(), daysClosed, StartDay.Sunday) //
             .inMode(SelectionMode.RANGE) //
             .withSelectedDates(dates);
       }
@@ -117,7 +122,7 @@ public class SampleTimesSquareActivity extends Activity {
         range.setEnabled(true);
         displayOnly.setEnabled(false);
 
-        calendar.init(new Date(), nextYear.getTime(), new ArrayList<Date>()) //
+        calendar.init(new Date(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday) //
             .inMode(SelectionMode.SINGLE) //
             .withSelectedDate(new Date())
             .displayOnly();
@@ -127,7 +132,7 @@ public class SampleTimesSquareActivity extends Activity {
     dialog.setOnClickListener(new OnClickListener() {
       @Override public void onClick(View view) {
         dialogView = (CalendarPickerView) getLayoutInflater().inflate(R.layout.dialog, null, false);
-        dialogView.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()) //
+        dialogView.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday) //
             .withSelectedDate(new Date());
         theDialog =
             new AlertDialog.Builder(SampleTimesSquareActivity.this).setTitle("I'm a dialog!")
@@ -154,7 +159,7 @@ public class SampleTimesSquareActivity extends Activity {
       public void onClick(View view) {
         dialogView = (CalendarPickerView) getLayoutInflater() //
             .inflate(R.layout.dialog_customized, null, false);
-        dialogView.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()).withSelectedDate(new Date());
+        dialogView.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday).withSelectedDate(new Date());
         theDialog =
             new AlertDialog.Builder(SampleTimesSquareActivity.this).setTitle("Pimp my calendar !")
                 .setView(dialogView)
@@ -201,4 +206,41 @@ public class SampleTimesSquareActivity extends Activity {
       });
     }
   }
+
+//    public class CalendarBuilder {
+//        private Date minDate;
+//        private Date maxDate;
+//        CalendarPickerView calendar;
+//        private Collection<Date> daysClosedDates;
+//        private StartDay startDay;
+//        private Locale locale;
+//
+//
+//        public CalendarBuilder(CalendarPickerView calendar, Date minDate, Date maxDate) {
+//            this.minDate = minDate;
+//            this.maxDate = maxDate;
+//        }
+//
+//        public CalendarBuilder setDaysClosedDates(Collection<Date> daysClosedDates) {
+//            this.daysClosedDates = daysClosedDates;
+//
+//            return this;
+//        }
+//
+//        public CalendarBuilder setStartDay(StartDay startDay) {
+//            this.startDay = startDay;
+//
+//            return this;
+//        }
+//
+//        public CalendarBuilder setLocale(Locale locale) {
+//            this.locale = locale;
+//
+//            return this;
+//        }
+//
+//        public FluentInitializer createCalendar() {
+//            return init(minDate, maxDate, daysClosedDates, startDay, locale == null ? Locale.getDefault() : locale);
+//        }
+//    }
 }

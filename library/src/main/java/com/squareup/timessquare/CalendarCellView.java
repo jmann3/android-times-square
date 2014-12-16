@@ -108,6 +108,9 @@ public class CalendarCellView extends TextView {
       mergeDrawableStates(drawableState, STATE_RANGE_LAST);
     }
 
+    if (rangeState == RangeState.MIDDLE && isClosed == true)
+        Log.d("Middle State", "Middle State should be blue");
+
     return drawableState;
   }
 }

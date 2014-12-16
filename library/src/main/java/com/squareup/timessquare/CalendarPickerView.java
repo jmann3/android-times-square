@@ -34,11 +34,12 @@ import static java.util.Calendar.MILLISECOND;
 import static java.util.Calendar.MINUTE;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SECOND;
+import static java.util.Calendar.SUNDAY;
 import static java.util.Calendar.YEAR;
 
 /**
  * Android component to allow picking a date from a calendar view (a list of months).  Must be
- * initialized after inflation with {@link #init(Date, Date, java.util.Collection<Date></Date>)} and can be customized with any of the
+ * initialized after inflation with init() and can be customized with any of the
  * {@link FluentInitializer} methods returned.  The currently selected date can be retrieved with
  * {@link #getSelectedDate()}.
  */
@@ -81,6 +82,7 @@ public class CalendarPickerView extends ListView {
   SelectionMode selectionMode;
   Calendar today;
   private Collection<Date> daysClosedDates;
+  private StartDay startDay;
   private int dividerColor;
   private int dayBackgroundResId;
   private int dayTextColorResId;
@@ -133,7 +135,7 @@ public class CalendarPickerView extends ListView {
       Calendar nextYear = Calendar.getInstance(locale);
       nextYear.add(Calendar.YEAR, 1);
 
-      init(new Date(), nextYear.getTime(), daysClosedDates) //
+      init(new Date(), nextYear.getTime(), daysClosedDates, StartDay.Sunday) //
           .withSelectedDate(new Date());
     }
   }
@@ -155,7 +157,7 @@ public class CalendarPickerView extends ListView {
    * @param minDate Earliest selectable date, inclusive.  Must be earlier than {@code maxDate}.
    * @param maxDate Latest selectable date, exclusive.  Must be later than {@code minDate}.
    */
-  public FluentInitializer init(Date minDate, Date maxDate, Collection<Date> daysClosedDates, Locale locale) {
+  public FluentInitializer init(Date minDate, Date maxDate, Collection<Date> daysClosedDates, StartDay startDay, Locale locale) {
     if (minDate == null || maxDate == null) {
       throw new IllegalArgumentException(
           "minDate and maxDate must be non-null.  " + dbg(minDate, maxDate));
@@ -218,9 +220,13 @@ public class CalendarPickerView extends ListView {
         || monthCounter.get(YEAR) < maxYear) // Up to the year.
         && monthCounter.get(YEAR) < maxYear + 1) { // But not > next yr.
       Date date = monthCounter.getTime();
+
+      // create new month
       MonthDescriptor month =
           new MonthDescriptor(monthCounter.get(MONTH), monthCounter.get(YEAR), date,
               monthNameFormat.format(date));
+
+      // add days to month
       cells.add(getMonthCells(month, monthCounter));
       Logr.d("Adding month %s", month);
       months.add(month);
@@ -230,6 +236,8 @@ public class CalendarPickerView extends ListView {
     validateAndUpdate();
     return new FluentInitializer();
   }
+
+
 
   /**
    * Both date parameters must be non-null and their {@link Date#getTime()} must not return 0. Time
@@ -243,13 +251,13 @@ public class CalendarPickerView extends ListView {
    * <p>
    * The calendar will be constructed using the default locale as returned by
    * {@link java.util.Locale#getDefault()}. If you wish the calendar to be constructed using a
-   * different locale, use {@link #init(java.util.Date, java.util.Date, java.util.Collection<Date>, java.util.Locale)}.
+   * different locale, use init().
    *
    * @param minDate Earliest selectable date, inclusive.  Must be earlier than {@code maxDate}.
    * @param maxDate Latest selectable date, exclusive.  Must be later than {@code minDate}.
    */
-  public FluentInitializer init(Date minDate, Date maxDate, Collection<Date> daysClosedDates) {
-    return init(minDate, maxDate, daysClosedDates, Locale.getDefault());
+  public FluentInitializer init(Date minDate, Date maxDate, Collection<Date> daysClosedDates, StartDay startDay) {
+    return init(minDate, maxDate, daysClosedDates, startDay, Locale.getDefault());
   }
 
   public class FluentInitializer {
@@ -468,6 +476,8 @@ public class CalendarPickerView extends ListView {
       if (cellClickInterceptor != null && cellClickInterceptor.onCellClicked(clickedDate)) {
         return;
       }
+
+      // logic to determine if are between
       if (!betweenDates(clickedDate, minCal, maxCal) || !isDateSelectable(clickedDate)) {
         if (invalidDateListener != null) {
           invalidDateListener.onInvalidDateSelected(clickedDate);
@@ -596,6 +606,7 @@ public class CalendarPickerView extends ListView {
                   && singleCell.getDate().before(end)
                   && singleCell.isSelectable()) {
                 singleCell.setSelected(true);
+
                 singleCell.setRangeState(MonthCellDescriptor.RangeState.MIDDLE);
                 selectedCells.add(singleCell);
               }
@@ -738,6 +749,10 @@ public class CalendarPickerView extends ListView {
     cal.setTime(startCal.getTime());
     List<List<MonthCellDescriptor>> cells = new ArrayList<List<MonthCellDescriptor>>();
     cal.set(DAY_OF_MONTH, 1);
+
+
+    // set starting day in month
+    // TODO: provide abililty to alter starting day of week
     int firstDayOfWeek = cal.get(DAY_OF_WEEK);
     int offset = cal.getFirstDayOfWeek() - firstDayOfWeek;
     if (offset > 0) {
@@ -844,14 +859,8 @@ public class CalendarPickerView extends ListView {
   }
 
   private boolean isDateSelectable(Date date) {
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(date);
-      if (compareDates(cal, daysClosedDates)) {
-          return false;
-      } else {
 
-          return dateConfiguredListener == null || dateConfiguredListener.isDateSelectable(date);
-      }
+      return dateConfiguredListener == null || dateConfiguredListener.isDateSelectable(date);
   }
 
   public void setOnDateSelectedListener(OnDateSelectedListener listener) {
@@ -871,7 +880,7 @@ public class CalendarPickerView extends ListView {
    * Set a listener used to discriminate between selectable and unselectable dates. Set this to
    * disable arbitrary dates as they are rendered.
    * <p>
-   * Important: set this before you call {@link #init(Date, Date, Collection)} methods.  If called afterwards,
+   * Important: set this before you call init().  If called afterwards,
    * it will not be consistently applied.
    */
   public void setDateSelectableFilter(DateSelectableFilter listener) {

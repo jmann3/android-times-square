@@ -3,12 +3,20 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-  <item app:state_day_closed="true" app:state_range_middle="false">
+  <item app:state_day_closed="true"
+        app:state_range_middle="false">
         <color android:color="@color/not_available_background" />
   </item>
-  <item app:state_range_middle="true">
+  <item app:state_day_closed="false"
+        app:state_range_middle="true">
     <color android:color="@color/calendar_selected_range_bg"/>
   </item>
+
+  <item app:state_day_closed="true"
+        app:state_range_middle="true">
+      <color android:color="@color/calendar_selected_range_bg"/>
+  </item>
+
   <item android:state_selected="true">
     <color android:color="@color/calendar_selected_day_bg"/>
   </item>
