@@ -487,6 +487,7 @@ public class CalendarPickerView extends ListView {
 
         if (dateListener != null) {
           if (wasSelected) {
+            // TODO: Create listeners to provide feedback to app
             dateListener.onDateSelected(clickedDate);
           } else {
             dateListener.onDateUnselected(clickedDate);
