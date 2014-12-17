@@ -93,6 +93,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
         boolean isSelectable = monthCellDescriptor.isSelectable();
         float fingerX = view.getLeft() + motionEvent.getX();
         float fingerY = view.getTop() + motionEvent.getY();
+        int touchedCell = -1;
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
@@ -117,7 +118,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
                 mVelocityTracker.computeCurrentVelocity(1000);
                 float currentVelocity = mVelocityTracker.getXVelocity();
 
-                int touchedCell = fingerIntersectsChildNumber(fingerX, fingerY);
+                touchedCell = fingerIntersectsChildNumber(fingerX, fingerY);
 
                 if (priorTouchedCell != -1 && priorTouchedCell != touchedCell) {
                     userPanned = true;
@@ -213,9 +214,6 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
 
             case MotionEvent.ACTION_UP:
 
-                // remove range state
-                cellState = MonthCellDescriptor.RangeState.NONE;
-
                 // if the user has not tried to expand the range by panning
                 if (userPanned == false) {
                     // if position is in same cell as started, then treat as onClick()
@@ -230,12 +228,20 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
                         }
                     }
                 } else {
-                    // User has modified start and end dates.  Update CalendarPickerView with new endpoints
-                    
+                    // User has modified start and/or end dates.  Update CalendarPickerView with new endpoints
+
+                    if (listener != null && priorTouchedCell >= 0 && priorTouchedCell <= getChildCount())
+                        listener.handleSlideUpdate(cellState, (MonthCellDescriptor) getChildAt(priorTouchedCell).getTag());
+
+                    // clear prior selections
+
+
                 }
 
+                // restore global variables
                 userPanned = false;
                 priorTouchedCell = -1;
+                cellState = MonthCellDescriptor.RangeState.NONE;
 
                 break;
 
@@ -249,6 +255,9 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
         return true;
     }
 
+    /*
+     * Provides X coordinate of Left side of last Date cell
+     */
     private int getLastLeft(View view) {
 
         for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
@@ -262,6 +271,9 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
         return Integer.MAX_VALUE;
     }
 
+    /*
+     * Provides X coordinate of Right side of First date cell
+     */
     private int getFirstRight(View view) {
 
         for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
@@ -275,6 +287,9 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
         return Integer.MIN_VALUE;
     }
 
+    /*
+     * determine which if any date cell is intersected by the user's touch
+     */
     private int fingerIntersectsChildNumber(float x, float y) {
 
         for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {

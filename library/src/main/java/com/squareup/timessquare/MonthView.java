@@ -21,6 +21,7 @@ public class MonthView extends LinearLayout {
       DateFormat weekdayNameFormat, Listener listener, Calendar today, int dividerColor,
       int dayBackgroundResId, int dayTextColorResId, boolean displayHeader,
       int headerTextColor) {
+      
     final MonthView view = (MonthView) inflater.inflate(R.layout.month, parent, false);
     view.setDividerColor(dividerColor);
     view.setDayTextColor(dayTextColorResId);
@@ -130,5 +131,7 @@ public class MonthView extends LinearLayout {
 
   public interface Listener {
     void handleClick(MonthCellDescriptor cell);
+
+    void handleSlideUpdate(MonthCellDescriptor.RangeState cellState, MonthCellDescriptor cell);
   }
 }

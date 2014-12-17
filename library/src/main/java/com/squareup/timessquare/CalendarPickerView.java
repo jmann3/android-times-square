@@ -470,6 +470,10 @@ public class CalendarPickerView extends ListView {
   }
 
   private class CellClickedListener implements MonthView.Listener {
+
+    /*
+     * case for single date click
+     */
     @Override public void handleClick(MonthCellDescriptor cell) {
       Date clickedDate = cell.getDate();
 
@@ -493,6 +497,40 @@ public class CalendarPickerView extends ListView {
             dateListener.onDateUnselected(clickedDate);
           }
         }
+      }
+    }
+
+
+    /*
+     * case for week slider for FIRST or LAST day moved
+    */
+    @Override
+    public void handleSlideUpdate(RangeState cellState, MonthCellDescriptor cell) {
+
+      // TODO: listener to return modified start/end date
+
+      if (cellState == RangeState.LAST) {
+
+          // eliminate 2nd entries
+          selectedCals.remove(1);
+          selectedCells.remove(1);
+
+          // insert new 2nd entry
+          handleClick(cell);
+
+      } else if (cellState == RangeState.FIRST) {
+
+          // save 2nd entry
+          MonthCellDescriptor lastCellDescriptor = selectedCells.get(1);
+
+          // insert new entry
+          handleClick(cell);
+
+          // insert prior old entry
+          handleClick(lastCellDescriptor);
+
+      } else {
+          throw new RuntimeException("State is neither First nor Last for slideUpdate");
       }
     }
   }
@@ -565,6 +603,7 @@ public class CalendarPickerView extends ListView {
 
     switch (selectionMode) {
       case RANGE:
+
         if (selectedCals.size() > 1) {
           // We've already got a range selected: clear the old one.
           clearOldSelections();
