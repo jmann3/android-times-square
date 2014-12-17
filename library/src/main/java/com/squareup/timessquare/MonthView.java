@@ -21,7 +21,7 @@ public class MonthView extends LinearLayout {
       DateFormat weekdayNameFormat, Listener listener, Calendar today, int dividerColor,
       int dayBackgroundResId, int dayTextColorResId, boolean displayHeader,
       int headerTextColor) {
-      
+
     final MonthView view = (MonthView) inflater.inflate(R.layout.month, parent, false);
     view.setDividerColor(dividerColor);
     view.setDayTextColor(dayTextColorResId);
@@ -34,14 +34,15 @@ public class MonthView extends LinearLayout {
 
     final int originalDayOfWeek = today.get(Calendar.DAY_OF_WEEK);
 
+    // set days of week (SUN, MON, TUE, ... ) in header CalendarRowView
     int firstDayOfWeek = today.getFirstDayOfWeek();
     final CalendarRowView headerRow = (CalendarRowView) view.grid.getChildAt(0);
     for (int offset = 0; offset < 7; offset++) {
       today.set(Calendar.DAY_OF_WEEK, firstDayOfWeek + offset);
       final TextView textView = (TextView) headerRow.getChildAt(offset);
-      textView.setText(weekdayNameFormat.format(today.getTime()));
+      textView.setText(weekdayNameFormat.format(today.getTime()));      // set current day of month
     }
-    today.set(Calendar.DAY_OF_WEEK, originalDayOfWeek);
+    today.set(Calendar.DAY_OF_WEEK, originalDayOfWeek);                 // set current day to first day of week
     view.listener = listener;
     return view;
   }
@@ -78,6 +79,7 @@ public class MonthView extends LinearLayout {
           if (!cellView.getText().equals(cellDate)) {
             cellView.setText(cellDate);
           }
+
           cellView.setEnabled(cell.isCurrentMonth());
           cellView.setClickable(!displayOnly);
 
@@ -88,6 +90,11 @@ public class MonthView extends LinearLayout {
           cellView.setClosed(cell.isClosed());
           cellView.setRangeState(cell.getRangeState());
           cellView.setHighlighted(cell.isHighlighted());
+
+          // clear prior cell background
+          //cellView.setBackgroundResource(R.drawable.calendar_bg_selector);
+          //cellView.setTextColor(getResources().getColor(R.color.calendar_text_selector));
+
           cellView.setTag(cell);
         }
       } else {
@@ -133,5 +140,7 @@ public class MonthView extends LinearLayout {
     void handleClick(MonthCellDescriptor cell);
 
     void handleSlideUpdate(MonthCellDescriptor.RangeState cellState, MonthCellDescriptor cell);
+
+    void updateCellData(int month, int week, int day);
   }
 }

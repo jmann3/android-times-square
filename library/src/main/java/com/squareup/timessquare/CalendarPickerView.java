@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 
 import static java.util.Calendar.DATE;
@@ -511,9 +512,16 @@ public class CalendarPickerView extends ListView {
 
       if (cellState == RangeState.LAST) {
 
-          // eliminate 2nd entries
+          // eliminate 2nd calendar which is LAST's
           selectedCals.remove(1);
-          selectedCells.remove(1);
+
+          // eliminate all middle cells and LAST's
+          ListIterator<MonthCellDescriptor> iterator = selectedCells.listIterator();
+          while (iterator.hasNext()){
+              MonthCellDescriptor monthCellDescriptor = iterator.next();
+              if (monthCellDescriptor.getRangeState() == RangeState.LAST || monthCellDescriptor.getRangeState() == RangeState.MIDDLE)
+                  iterator.remove();
+          }
 
           // insert new 2nd entry
           handleClick(cell);
@@ -532,6 +540,14 @@ public class CalendarPickerView extends ListView {
       } else {
           throw new RuntimeException("State is neither First nor Last for slideUpdate");
       }
+    }
+
+    @Override
+    public void updateCellData(int month, int week, int day) {
+
+        MonthCellDescriptor monthCellDescriptor = (MonthCellDescriptor)((List<MonthCellDescriptor>)((List<List<MonthCellDescriptor>>)(cells.get(month))).get(week)).get(day);
+        monthCellDescriptor.setRangeState(RangeState.FIRST);
+        validateAndUpdate();
     }
   }
 

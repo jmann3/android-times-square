@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.view.View.MeasureSpec.AT_MOST;
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
@@ -89,6 +92,11 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
         int action = motionEvent.getActionMasked();
         int pointerId = motionEvent.getPointerId(index);
         MonthCellDescriptor monthCellDescriptor = (MonthCellDescriptor)view.getTag();
+
+        if (monthCellDescriptor == null) {
+            return true;
+        }
+
         boolean isClosed = monthCellDescriptor.isClosed();
         boolean isSelectable = monthCellDescriptor.isSelectable();
         float fingerX = view.getLeft() + motionEvent.getX();
@@ -99,6 +107,9 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
             case MotionEvent.ACTION_DOWN:
 
                 cellState = monthCellDescriptor.getRangeState();
+
+                // store cell text and background color selections
+                //storeCellColors();
 
                 if (mVelocityTracker == null) {
                     mVelocityTracker = VelocityTracker.obtain();
@@ -215,8 +226,9 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
             case MotionEvent.ACTION_UP:
 
                 // if the user has not tried to expand the range by panning
-                if (userPanned == false) {
+                if (userPanned == false || (cellState != MonthCellDescriptor.RangeState.FIRST && cellState != MonthCellDescriptor.RangeState.LAST)) {
                     // if position is in same cell as started, then treat as onClick()
+
                     for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
                         final View child = getChildAt(c);
 
@@ -232,9 +244,6 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
 
                     if (listener != null && priorTouchedCell >= 0 && priorTouchedCell <= getChildCount())
                         listener.handleSlideUpdate(cellState, (MonthCellDescriptor) getChildAt(priorTouchedCell).getTag());
-
-                    // clear prior selections
-
 
                 }
 
