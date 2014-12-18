@@ -92,8 +92,8 @@ public class MonthView extends LinearLayout {
           cellView.setHighlighted(cell.isHighlighted());
 
           // clear prior cell background
-          //cellView.setBackgroundResource(R.drawable.calendar_bg_selector);
-          //cellView.setTextColor(getResources().getColor(R.color.calendar_text_selector));
+          cellView.setBackgroundResource(R.drawable.calendar_bg_selector);
+          cellView.setTextColor(getResources().getColorStateList(R.color.calendar_text_selector));
 
           cellView.setTag(cell);
         }

@@ -31,6 +31,8 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
   private int priorTouchedCell = -1;
   private boolean userPanned = false;
 
+  private MonthCellDescriptor.RangeState mCellState = MonthCellDescriptor.RangeState.NONE;
+
   public CalendarRowView(Context context, AttributeSet attrs) {
     super(context, attrs);
   }
@@ -85,6 +87,46 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
 //    }
   }
 
+
+
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//
+//        switch (ev.getAction()) {
+//
+//            case MotionEvent.ACTION_DOWN:
+//
+//                // determine cell initial hit is on
+//
+//                // set up velocity tracker
+//                mCellState = monthCellDescriptor.getRangeState();
+//
+//                // store cell text and background color selections
+//                //storeCellColors();
+//
+//                if (mVelocityTracker == null) {
+//                    mVelocityTracker = VelocityTracker.obtain();
+//
+//                } else {
+//                    mVelocityTracker.clear();
+//                }
+//
+//                // Add a user's movement to the tracker
+//                mVelocityTracker.addMovement(ev);
+//            break;
+//
+//        }
+//
+//        return super.onInterceptTouchEvent(ev);
+//    }
+//
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        return super.onTouchEvent(event);
+//    }
+
+
+
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
@@ -97,8 +139,6 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
             return true;
         }
 
-        boolean isClosed = monthCellDescriptor.isClosed();
-        boolean isSelectable = monthCellDescriptor.isSelectable();
         float fingerX = view.getLeft() + motionEvent.getX();
         float fingerY = view.getTop() + motionEvent.getY();
         int touchedCell = -1;
@@ -123,6 +163,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
                 break;
 
             case MotionEvent.ACTION_MOVE:
+
                 mVelocityTracker.addMovement(motionEvent);
 
                 // get velocity per second
@@ -130,6 +171,17 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
                 float currentVelocity = mVelocityTracker.getXVelocity();
 
                 touchedCell = fingerIntersectsChildNumber(fingerX, fingerY);
+
+                MonthCellDescriptor mcd = ((MonthCellDescriptor)getChildAt(touchedCell).getTag());
+
+                boolean isClosed = true;
+                boolean isSelectable = false;
+                if (mcd != null) {
+                    isClosed = mcd.isClosed();
+                    isSelectable = mcd.isSelectable();
+                } else {
+                    return true;
+                }
 
                 if (priorTouchedCell != -1 && priorTouchedCell != touchedCell) {
                     userPanned = true;
@@ -139,28 +191,8 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
                 // only track movement if touched down in First or Last cell
                 if (cellState == MonthCellDescriptor.RangeState.FIRST && touchedCell != -1) {
 
-                    // check have not reached Last and have not hit closed day or prior month
+                    // check have not reached Last and have not hit Closed Day or prior month
                     if (fingerX <= getLastLeft(view) && !isClosed && isSelectable) {
-
-//                        int leftBackgroundColor = 0;
-//                        int leftTextColor = 0;
-//                        int rightBackgroundColor = 0;
-//                        int rightTextColor = 0;
-
-//                        // retain color of left cell
-//                        if (touchedCell - 1 > 0) {
-//                            TextView leftCell = ((TextView) getChildAt(touchedCell - 1));
-//                            ColorDrawable leftCellBackgroundColor = (ColorDrawable) leftCell.getBackground();
-//                            leftBackgroundColor = leftCellBackgroundColor.getColor();
-//                            leftTextColor = leftCell.getCurrentTextColor();
-//                        }
-//
-//                        if (touchedCell + 1 <= getChildCount()) {
-//                            TextView leftCell = ((TextView) getChildAt(touchedCell + 1));
-//                            ColorDrawable leftCellBackgroundColor = (ColorDrawable) leftCell.getBackground();
-//                            rightBackgroundColor = leftCellBackgroundColor.getColor();
-//                            rightTextColor = leftCell.getCurrentTextColor();
-//                        }
 
                         //retain color of right cell
 
@@ -172,8 +204,10 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
                         // if moving left, prior cell is light blue, unless prior cell is LastCell
                         if (currentVelocity < 0) {
 
-                            if (((MonthCellDescriptor)getChildAt(touchedCell + 1).getTag()).getRangeState() != MonthCellDescriptor.RangeState.LAST)
-                                ((TextView)getChildAt(touchedCell + 1)).setBackgroundResource(R.color.calendar_selected_range_bg);
+                            if (touchedCell + 1 < getChildCount()) {
+                                if (((MonthCellDescriptor) getChildAt(touchedCell + 1).getTag()).getRangeState() != MonthCellDescriptor.RangeState.LAST)
+                                    ((TextView) getChildAt(touchedCell + 1)).setBackgroundResource(R.color.calendar_selected_range_bg);
+                            }
 
                         } else {
                             // if moving right, prior cell is white
@@ -203,8 +237,10 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
 
                         } else {
                             // if moving right, prior cell is blue
-                            if (((MonthCellDescriptor)getChildAt(touchedCell - 1).getTag()).getRangeState() != MonthCellDescriptor.RangeState.FIRST)
-                                ((TextView)getChildAt(touchedCell - 1)).setBackgroundResource(R.color.calendar_selected_range_bg);
+                            if (touchedCell - 1 >= 0) {
+                                if (((MonthCellDescriptor) getChildAt(touchedCell - 1).getTag()).getRangeState() != MonthCellDescriptor.RangeState.FIRST)
+                                    ((TextView) getChildAt(touchedCell - 1)).setBackgroundResource(R.color.calendar_selected_range_bg);
+                            }
 
                         }
                     }

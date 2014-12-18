@@ -1,5 +1,6 @@
 package com.squareup.timessquare;
 
+import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class LibUtils {
     public static boolean isPointInsideView(float x, float y, View view){
 
         int viewX = view.getLeft();
+        int viewY = view.getTop();
 
         //point is inside view bounds
         if(( x > viewX && x < (viewX + view.getWidth()))){
