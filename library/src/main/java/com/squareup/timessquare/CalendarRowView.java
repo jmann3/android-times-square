@@ -21,7 +21,7 @@ import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 
 /** TableRow that draws a divider between each cell. To be used with {@link CalendarGridView}. */
-public class CalendarRowView extends ViewGroup implements View.OnClickListener, View.OnTouchListener {
+public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
   private boolean isHeaderRow;
   private MonthView.Listener listener;
   private int cellSize;
@@ -38,7 +38,6 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
   }
 
   @Override public void addView(View child, int index, ViewGroup.LayoutParams params) {
-    child.setOnClickListener(this);
 
     child.setOnTouchListener(this);
 
@@ -78,13 +77,6 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
 
   public void setIsHeaderRow(boolean isHeaderRow) {
     this.isHeaderRow = isHeaderRow;
-  }
-
-  @Override public void onClick(View v) {
-    // Header rows don't have a click listener
-//    if (listener != null) {
-//      listener.handleClick((MonthCellDescriptor) v.getTag());
-//    }
   }
 
 
@@ -174,6 +166,8 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
 
                 MonthCellDescriptor mcd = ((MonthCellDescriptor)getChildAt(touchedCell).getTag());
 
+                Log.d("Line #177", "touched cell is " + touchedCell + ", fingerX is " + fingerX + ", fingerY is " + fingerY);
+
                 boolean isClosed = true;
                 boolean isSelectable = false;
                 if (mcd != null) {
@@ -192,7 +186,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
                 if (cellState == MonthCellDescriptor.RangeState.FIRST && touchedCell != -1) {
 
                     // check have not reached Last and have not hit Closed Day or prior month
-                    if (fingerX <= getLastLeft(view) && !isClosed && isSelectable) {
+                    if (fingerX <= getLastLeft(view) && isSelectable) {
 
                         //retain color of right cell
 
@@ -212,8 +206,13 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
                         } else {
                             // if moving right, prior cell is white
                             if (touchedCell - 1 >= 0) {
-                                ((TextView) getChildAt(touchedCell - 1)).setBackgroundResource(R.color.calendar_active_month_bg);
-                                ((TextView) getChildAt(touchedCell - 1)).setTextColor(getResources().getColor(R.color.calendar_text_active));
+                                int priorBackgroundColor = LibUtils.getPriorCellColors((MonthCellDescriptor)getChildAt(touchedCell - 1).getTag()).get(LibUtils.BACKGROUND_COLOR);
+                                ((TextView) getChildAt(touchedCell - 1)).setBackgroundResource(priorBackgroundColor);
+
+                                int priorTextColor = LibUtils.getPriorCellColors((MonthCellDescriptor)getChildAt(touchedCell - 1).getTag()).get(LibUtils.TEXT_COLOR);
+                                //((TextView) getChildAt(touchedCell - 1)).setTextColor(priorTextColor);
+                                ((TextView) getChildAt(touchedCell - 1)).setTextColor(priorTextColor);
+
                             }
                         }
                     }
@@ -222,7 +221,7 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
                 } else if (cellState == MonthCellDescriptor.RangeState.LAST) {
 
                     // check have not reached First
-                    if (fingerX >= getFirstRight(view) && !isClosed && isSelectable) {
+                    if (fingerX >= getFirstRight(view) && isSelectable) {
 
                         // set color of current cell
                         ((TextView)getChildAt(touchedCell)).setBackgroundResource(R.color.calendar_selected_day_bg);
@@ -231,8 +230,12 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener, 
                         // if moving left, prior cell is white
                         if (currentVelocity < 0) {
                             if (touchedCell + 1 < getChildCount()) {
-                                ((TextView) getChildAt(touchedCell + 1)).setBackgroundResource(R.color.calendar_active_month_bg);
-                                ((TextView) getChildAt(touchedCell + 1)).setTextColor(getResources().getColor(R.color.calendar_text_active));
+                                int priorBackgroundColor = LibUtils.getPriorCellColors((MonthCellDescriptor)getChildAt(touchedCell + 1).getTag()).get(LibUtils.BACKGROUND_COLOR);
+                                ((TextView) getChildAt(touchedCell + 1)).setBackgroundResource(priorBackgroundColor);
+
+
+                                int priorTextColor = LibUtils.getPriorCellColors((MonthCellDescriptor)getChildAt(touchedCell + 1).getTag()).get(LibUtils.TEXT_COLOR);
+                                ((TextView) getChildAt(touchedCell + 1)).setTextColor(getResources().getColor(priorTextColor));
                             }
 
                         } else {

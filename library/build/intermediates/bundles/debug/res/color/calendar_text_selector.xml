@@ -3,11 +3,40 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-  <item android:state_selected="true" android:color="@color/calendar_text_selected"/>
-  <item android:state_pressed="true" android:color="@color/calendar_text_selected"/>
-  <item app:state_current_month="false" android:color="@color/calendar_text_inactive"/>
-  <item app:state_today="true" android:color="@color/calendar_active_month_bg"/>
-  <item app:state_selectable="false" android:color="@color/calendar_text_unselectable" />
-  <item android:color="@color/calendar_text_active"/>
+
+    <!--addition-->
+    <item android:state_pressed="true" android:color="@color/calendar_text_selected" />
+
+    <item app:state_day_closed="true"
+        app:state_range_middle="false" android:color="@color/calendar_text_inactive" />
+
+    <item app:state_day_closed="false"
+        app:state_range_middle="true" android:color="@color/calendar_text_selected"/>
+
+    <item app:state_day_closed="true"
+        app:state_range_middle="true" android:color="@color/calendar_text_selected"/>
+
+    <item android:state_selected="true" android:color="@color/calendar_text_selected"/>
+    
+
+    <item android:state_pressed="true" android:color="@color/calendar_selected_day_bg"/>
+    
+
+    <item app:state_current_month="false" android:color="@color/calendar_text_inactive"/>
+    
+
+    <item app:state_highlighted="true" android:color="@color/calendar_highlighted_day_bg"/>
+    
+
+    <item app:state_today="true" android:color="@color/calendar_text_active"/>
+
+    <!--addition-->
+    <item app:state_selectable="false" android:color="@color/calendar_text_unselectable" />
+    
+
+    <item android:color="@color/calendar_text_active"/>
+
 </selector>
+
+
 <!-- From: file:/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/library/src/main/res/color/calendar_text_selector.xml -->

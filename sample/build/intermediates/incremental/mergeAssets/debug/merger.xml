@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="unspecified"><source path="/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/sample/build/intermediates/exploded-aar/EnterpriseCalendarRepo/library/unspecified/assets"/></dataSet><dataSet config="main"><source path="/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/sample/src/main/assets"/></dataSet><dataSet config="debug"><source path="/Users/jmann/Projects/Android/Enterprise/EnterpriseCalendarRepo/sample/src/debug/assets"/></dataSet></merger>

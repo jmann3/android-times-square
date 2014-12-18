@@ -655,9 +655,19 @@ public class CalendarPickerView extends ListView {
         selectedCells.get(0).setRangeState(MonthCellDescriptor.RangeState.FIRST);
         selectedCells.get(1).setRangeState(MonthCellDescriptor.RangeState.LAST);
 
+        // fill in the Middle days && remove prior date selections
         for (List<List<MonthCellDescriptor>> month : cells) {
           for (List<MonthCellDescriptor> week : month) {
             for (MonthCellDescriptor singleCell : week) {
+
+                // reset all date Ranges and Selected
+                if (!(singleCell.getDate().equals(start) || singleCell.getDate().equals(end))) {
+                    singleCell.setSelected(false);
+                    singleCell.setRangeState(RangeState.NONE);
+                }
+
+
+              // insert Middle days
               if (singleCell.getDate().after(start)
                   && singleCell.getDate().before(end)
                   && singleCell.isSelectable()) {
