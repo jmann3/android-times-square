@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -21,25 +22,31 @@ import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 
 /** TableRow that draws a divider between each cell. To be used with {@link CalendarGridView}. */
-public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
+public class CalendarRowView extends ViewGroup {
   private boolean isHeaderRow;
   private MonthView.Listener listener;
   private int cellSize;
-  private MonthCellDescriptor.RangeState cellState;
+  private Context context;
 
   private VelocityTracker mVelocityTracker = null;
+  private int lastX;
+  private int lastY;
+  private int startY;
+  private float fingerX;
+  private float fingerY;
+  private int touchedCell = -1;
   private int priorTouchedCell = -1;
   private boolean userPanned = false;
 
-  private MonthCellDescriptor.RangeState mCellState = MonthCellDescriptor.RangeState.NONE;
+  private MonthCellDescriptor.RangeState cellState = MonthCellDescriptor.RangeState.NONE;
 
   public CalendarRowView(Context context, AttributeSet attrs) {
     super(context, attrs);
+
+    this.context = context;
   }
 
   @Override public void addView(View child, int index, ViewGroup.LayoutParams params) {
-
-    child.setOnTouchListener(this);
 
     super.addView(child, index, params);
   }
@@ -81,67 +88,28 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
 
 
 
-//    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent ev) {
-//
-//        switch (ev.getAction()) {
-//
-//            case MotionEvent.ACTION_DOWN:
-//
-//                // determine cell initial hit is on
-//
-//                // set up velocity tracker
-//                mCellState = monthCellDescriptor.getRangeState();
-//
-//                // store cell text and background color selections
-//                //storeCellColors();
-//
-//                if (mVelocityTracker == null) {
-//                    mVelocityTracker = VelocityTracker.obtain();
-//
-//                } else {
-//                    mVelocityTracker.clear();
-//                }
-//
-//                // Add a user's movement to the tracker
-//                mVelocityTracker.addMovement(ev);
-//            break;
-//
-//        }
-//
-//        return super.onInterceptTouchEvent(ev);
-//    }
-//
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        return super.onTouchEvent(event);
-//    }
-
-
-
     @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
 
-        int index = motionEvent.getActionIndex();
-        int action = motionEvent.getActionMasked();
-        int pointerId = motionEvent.getPointerId(index);
-        MonthCellDescriptor monthCellDescriptor = (MonthCellDescriptor)view.getTag();
+        // processes initial touch down and move.  If return true, forward touches until next touch up or cancel to onTouchEvent()
 
-        if (monthCellDescriptor == null) {
-            return true;
-        }
+        switch (ev.getAction()) {
 
-        float fingerX = view.getLeft() + motionEvent.getX();
-        float fingerY = view.getTop() + motionEvent.getY();
-        int touchedCell = -1;
-
-        switch (action) {
             case MotionEvent.ACTION_DOWN:
 
-                cellState = monthCellDescriptor.getRangeState();
+                // find cell touched
+                fingerX = ev.getX();
+                fingerY = ev.getY();
+                startY = (int)fingerY;
 
-                // store cell text and background color selections
-                //storeCellColors();
+                // determine cell initial hit is on
+                touchedCell = fingerIntersectsChildNumber(fingerX, fingerY);
+
+                priorTouchedCell = touchedCell;
+
+                // set up velocity tracker
+                Log.d("Touched Cell", "touched cell is " + touchedCell);
+                cellState = ((MonthCellDescriptor)getChildAt(touchedCell).getTag()).getRangeState();
 
                 if (mVelocityTracker == null) {
                     mVelocityTracker = VelocityTracker.obtain();
@@ -151,12 +119,82 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
                 }
 
                 // Add a user's movement to the tracker
-                mVelocityTracker.addMovement(motionEvent);
+                mVelocityTracker.addMovement(ev);
+
                 break;
 
             case MotionEvent.ACTION_MOVE:
+                fingerX = ev.getX();
+                fingerY = ev.getY();
 
-                mVelocityTracker.addMovement(motionEvent);
+                // determine cell initial hit is on
+                touchedCell = fingerIntersectsChildNumber(fingerX, fingerY);
+
+                priorTouchedCell = touchedCell;
+
+                float xDelta = Math.abs(fingerX - lastX);
+                float yDelta = Math.abs(fingerY - lastY);
+
+                float yDeltaTotal = fingerY - startY;
+                if (yDelta < xDelta && Math.abs(yDeltaTotal) < ViewConfiguration.get(context).getScaledTouchSlop()) {
+                    startY = (int)fingerY;
+                    return true;
+                }
+
+                break;
+
+            case MotionEvent.ACTION_UP:
+
+                    View initialView = getChildAt(touchedCell);
+                    for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
+                        final View child = getChildAt(c);
+
+                        if (LibUtils.isPointInsideView(fingerX, fingerY, child)) {
+                            if (listener != null && child == initialView)
+                                listener.handleClick((MonthCellDescriptor) initialView.getTag());
+
+                            break;
+                        }
+                    }
+
+                break;
+
+            case MotionEvent.ACTION_CANCEL:
+
+                // mVelocityTracker.recycle();
+                mVelocityTracker = null;
+
+                break;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_MOVE:
+
+                // find cell touched
+                fingerX = event.getX();
+                fingerY = event.getY();
+
+                // check if scrolling vertically
+                float xDelta = Math.abs(fingerX - event.getX());
+                float yDelta = Math.abs(fingerY - event.getY());
+
+                float yDeltaTotal = fingerY - startY;
+                if (yDelta > xDelta && Math.abs(yDeltaTotal) > ViewConfiguration.get(context).getScaledTouchSlop()) {
+                    startY = (int)fingerY;
+                    return true;
+                }
+
+
+                // restore initial code
+                mVelocityTracker.addMovement(event);
 
                 // get velocity per second
                 mVelocityTracker.computeCurrentVelocity(1000);
@@ -164,9 +202,13 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
 
                 touchedCell = fingerIntersectsChildNumber(fingerX, fingerY);
 
-                MonthCellDescriptor mcd = ((MonthCellDescriptor)getChildAt(touchedCell).getTag());
-
                 Log.d("Line #177", "touched cell is " + touchedCell + ", fingerX is " + fingerX + ", fingerY is " + fingerY);
+
+                if (touchedCell < 0 || touchedCell > getChildCount() - 1) {
+                    return true;
+                }
+
+                MonthCellDescriptor mcd = ((MonthCellDescriptor)getChildAt(touchedCell).getTag());
 
                 boolean isClosed = true;
                 boolean isSelectable = false;
@@ -186,7 +228,7 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
                 if (cellState == MonthCellDescriptor.RangeState.FIRST && touchedCell != -1) {
 
                     // check have not reached Last and have not hit Closed Day or prior month
-                    if (fingerX <= getLastLeft(view) && isSelectable) {
+                    if (fingerX <= getLastLeft() && isSelectable) {
 
                         //retain color of right cell
 
@@ -221,7 +263,7 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
                 } else if (cellState == MonthCellDescriptor.RangeState.LAST) {
 
                     // check have not reached First
-                    if (fingerX >= getFirstRight(view) && isSelectable) {
+                    if (fingerX >= getFirstRight() && isSelectable) {
 
                         // set color of current cell
                         ((TextView)getChildAt(touchedCell)).setBackgroundResource(R.color.calendar_selected_day_bg);
@@ -250,7 +292,7 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
                 }
 
                 // determine which cell is touching
-                View touchedView = view;
+                View touchedView = null;
                 for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
                     final View child = getChildAt(c);
 
@@ -260,6 +302,12 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
                     }
                 }
 
+
+
+                // update prior x and y positions
+                lastX = (int)fingerX;
+                lastY = (int)fingerY;
+
                 break;
 
             case MotionEvent.ACTION_UP:
@@ -268,12 +316,13 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
                 if (userPanned == false || (cellState != MonthCellDescriptor.RangeState.FIRST && cellState != MonthCellDescriptor.RangeState.LAST)) {
                     // if position is in same cell as started, then treat as onClick()
 
+                    View initialView = getChildAt(touchedCell);
                     for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
                         final View child = getChildAt(c);
 
                         if (LibUtils.isPointInsideView(fingerX, fingerY, child)) {
-                            if (listener != null && child == view)
-                                listener.handleClick((MonthCellDescriptor) view.getTag());
+                            if (listener != null && child == initialView)
+                                listener.handleClick((MonthCellDescriptor) initialView.getTag());
 
                             break;
                         }
@@ -294,10 +343,11 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
                 break;
 
             case MotionEvent.ACTION_CANCEL:
-                mVelocityTracker.recycle();
-                mVelocityTracker = null;
-                break;
 
+                // mVelocityTracker.recycle();
+                mVelocityTracker = null;
+
+                break;
         }
 
         return true;
@@ -306,7 +356,7 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
     /*
      * Provides X coordinate of Left side of last Date cell
      */
-    private int getLastLeft(View view) {
+    private int getLastLeft() {
 
         for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
             final View child = getChildAt(c);
@@ -322,7 +372,7 @@ public class CalendarRowView extends ViewGroup implements View.OnTouchListener {
     /*
      * Provides X coordinate of Right side of First date cell
      */
-    private int getFirstRight(View view) {
+    private int getFirstRight() {
 
         for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
             final View child = getChildAt(c);
