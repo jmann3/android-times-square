@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.Toast;
 import com.squareup.timessquare.CalendarPickerView;
 import com.squareup.timessquare.CalendarPickerView.SelectionMode;
-import com.squareup.timessquare.StartDay;
+import com.squareup.timessquare.RangeState;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -23,7 +25,7 @@ import java.util.Locale;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class SampleTimesSquareActivity extends Activity {
+public class SampleTimesSquareActivity extends Activity implements CalendarPickerView.OnDateSelectedListener {
   private static final String TAG = "SampleTimesSquareActivity";
   private CalendarPickerView calendar;
   private AlertDialog theDialog;
@@ -42,7 +44,9 @@ public class SampleTimesSquareActivity extends Activity {
 
     calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
 
-    calendar.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday) //
+      calendar.setOnDateSelectedListener(this);
+
+    calendar.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()) //
         .inMode(SelectionMode.SINGLE) //
         .withSelectedDate(new Date());
 
@@ -60,7 +64,7 @@ public class SampleTimesSquareActivity extends Activity {
         range.setEnabled(true);
         displayOnly.setEnabled(true);
 
-        calendar.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday) //
+        calendar.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()) //
             .inMode(SelectionMode.SINGLE) //
             .withSelectedDate(new Date());
       }
@@ -80,7 +84,7 @@ public class SampleTimesSquareActivity extends Activity {
           today.add(Calendar.DAY_OF_MONTH, 3);
           dates.add(today.getTime());
         }
-        calendar.init(new Date(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday) //
+        calendar.init(new Date(), nextYear.getTime(), new ArrayList<Date>()) //
             .inMode(SelectionMode.MULTIPLE) //
             .withSelectedDates(dates);
       }
@@ -108,9 +112,10 @@ public class SampleTimesSquareActivity extends Activity {
           today.add(Calendar.DATE, -30);
 
 
-        calendar.init(new Date(), nextYear.getTime(), daysClosed, StartDay.Sunday) //
+        calendar.init(new Date(), nextYear.getTime(), daysClosed) //
             .inMode(SelectionMode.RANGE) //
             .withSelectedDates(dates);
+
       }
     });
 
@@ -122,7 +127,7 @@ public class SampleTimesSquareActivity extends Activity {
         range.setEnabled(true);
         displayOnly.setEnabled(false);
 
-        calendar.init(new Date(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday) //
+        calendar.init(new Date(), nextYear.getTime(), new ArrayList<Date>()) //
             .inMode(SelectionMode.SINGLE) //
             .withSelectedDate(new Date())
             .displayOnly();
@@ -132,7 +137,7 @@ public class SampleTimesSquareActivity extends Activity {
     dialog.setOnClickListener(new OnClickListener() {
       @Override public void onClick(View view) {
         dialogView = (CalendarPickerView) getLayoutInflater().inflate(R.layout.dialog, null, false);
-        dialogView.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday) //
+        dialogView.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()) //
             .withSelectedDate(new Date());
         theDialog =
             new AlertDialog.Builder(SampleTimesSquareActivity.this).setTitle("I'm a dialog!")
@@ -159,7 +164,7 @@ public class SampleTimesSquareActivity extends Activity {
       public void onClick(View view) {
         dialogView = (CalendarPickerView) getLayoutInflater() //
             .inflate(R.layout.dialog_customized, null, false);
-        dialogView.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>(), StartDay.Sunday).withSelectedDate(new Date());
+        dialogView.init(lastYear.getTime(), nextYear.getTime(), new ArrayList<Date>()).withSelectedDate(new Date());
         theDialog =
             new AlertDialog.Builder(SampleTimesSquareActivity.this).setTitle("Pimp my calendar !")
                 .setView(dialogView)
@@ -206,6 +211,32 @@ public class SampleTimesSquareActivity extends Activity {
       });
     }
   }
+
+  // OnDateSelectedListener methods
+
+    @Override
+    public void onDateSelected(Date date, RangeState rangeState) {
+
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        String reportDate = df.format(date);
+
+        Toast.makeText(this, "Date is " + reportDate + "RangeState is " + rangeState, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDateUnselected(Date date) {
+
+    }
+
+    @Override
+    public void onRangeModified(Date date, RangeState rangeState) {
+
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        String reportDate = df.format(date);
+
+        Toast.makeText(this, "Date is " + reportDate + " RangeState is " + rangeState, Toast.LENGTH_LONG).show();
+    }
+
 
 //    public class CalendarBuilder {
 //        private Date minDate;

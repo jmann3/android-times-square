@@ -137,9 +137,9 @@ public class MonthView extends LinearLayout {
   }
 
   public interface Listener {
-    void handleClick(MonthCellDescriptor cell);
+    void handleClick(MonthCellDescriptor cell, boolean isRange, RangeState rangeState);
 
-    void handleSlideUpdate(MonthCellDescriptor.RangeState cellState, MonthCellDescriptor cell);
+    void handleSlideUpdate(RangeState cellState, MonthCellDescriptor cell);
 
     void updateCellData(int month, int week, int day);
   }

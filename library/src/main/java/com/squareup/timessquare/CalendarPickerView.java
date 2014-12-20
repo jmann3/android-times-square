@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.squareup.timessquare.MonthCellDescriptor.RangeState;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -83,7 +82,7 @@ public class CalendarPickerView extends ListView {
   SelectionMode selectionMode;
   Calendar today;
   private Collection<Date> daysClosedDates;
-  private StartDay startDay;
+  //private StartDay startDay;
   private int dividerColor;
   private int dayBackgroundResId;
   private int dayTextColorResId;
@@ -136,7 +135,7 @@ public class CalendarPickerView extends ListView {
       Calendar nextYear = Calendar.getInstance(locale);
       nextYear.add(Calendar.YEAR, 1);
 
-      init(new Date(), nextYear.getTime(), daysClosedDates, StartDay.Sunday) //
+      init(new Date(), nextYear.getTime(), daysClosedDates) //
           .withSelectedDate(new Date());
     }
   }
@@ -158,7 +157,7 @@ public class CalendarPickerView extends ListView {
    * @param minDate Earliest selectable date, inclusive.  Must be earlier than {@code maxDate}.
    * @param maxDate Latest selectable date, exclusive.  Must be later than {@code minDate}.
    */
-  public FluentInitializer init(Date minDate, Date maxDate, Collection<Date> daysClosedDates, StartDay startDay, Locale locale) {
+  public FluentInitializer init(Date minDate, Date maxDate, Collection<Date> daysClosedDates, Locale locale) {
     if (minDate == null || maxDate == null) {
       throw new IllegalArgumentException(
           "minDate and maxDate must be non-null.  " + dbg(minDate, maxDate));
@@ -257,8 +256,8 @@ public class CalendarPickerView extends ListView {
    * @param minDate Earliest selectable date, inclusive.  Must be earlier than {@code maxDate}.
    * @param maxDate Latest selectable date, exclusive.  Must be later than {@code minDate}.
    */
-  public FluentInitializer init(Date minDate, Date maxDate, Collection<Date> daysClosedDates, StartDay startDay) {
-    return init(minDate, maxDate, daysClosedDates, startDay, Locale.getDefault());
+  public FluentInitializer init(Date minDate, Date maxDate, Collection<Date> daysClosedDates) {
+    return init(minDate, maxDate, daysClosedDates, Locale.getDefault());
   }
 
   public class FluentInitializer {
@@ -475,7 +474,7 @@ public class CalendarPickerView extends ListView {
     /*
      * case for single date click
      */
-    @Override public void handleClick(MonthCellDescriptor cell) {
+    @Override public void handleClick(MonthCellDescriptor cell, boolean isRange, RangeState rangeState) {
       Date clickedDate = cell.getDate();
 
       if (cellClickInterceptor != null && cellClickInterceptor.onCellClicked(clickedDate)) {
@@ -493,7 +492,15 @@ public class CalendarPickerView extends ListView {
         if (dateListener != null) {
           if (wasSelected) {
             // TODO: Create listeners to provide feedback to app
-            dateListener.onDateSelected(clickedDate);
+            if (isRange) {
+                // range is being modified
+                // exclude case where changing FIRST and need to resubmit LAST to retain range
+                if (((MonthCellDescriptor)selectedCells.get(1)).getDate().equals(cell.getDate()))
+                    dateListener.onRangeModified(cell.getDate(), rangeState);
+            } else {
+                // single date was selected
+                dateListener.onDateSelected(clickedDate, selectedCells.size() == 1 ? RangeState.FIRST : RangeState.LAST);
+            }
           } else {
             dateListener.onDateUnselected(clickedDate);
           }
@@ -507,8 +514,6 @@ public class CalendarPickerView extends ListView {
     */
     @Override
     public void handleSlideUpdate(RangeState cellState, MonthCellDescriptor cell) {
-
-      // TODO: listener to return modified start/end date
 
       if (cellState == RangeState.LAST) {
 
@@ -524,7 +529,8 @@ public class CalendarPickerView extends ListView {
           }
 
           // insert new 2nd entry
-          handleClick(cell);
+          handleClick(cell, true, RangeState.LAST);
+
 
       } else if (cellState == RangeState.FIRST) {
 
@@ -532,10 +538,10 @@ public class CalendarPickerView extends ListView {
           MonthCellDescriptor lastCellDescriptor = selectedCells.get(1);
 
           // insert new entry
-          handleClick(cell);
+          handleClick(cell, false, null);
 
           // insert prior old entry
-          handleClick(lastCellDescriptor);
+          handleClick(lastCellDescriptor, true, RangeState.FIRST);
 
       } else {
           throw new RuntimeException("State is neither First nor Last for slideUpdate");
@@ -652,8 +658,8 @@ public class CalendarPickerView extends ListView {
         // Select all days in between start and end.
         Date start = selectedCells.get(0).getDate();
         Date end = selectedCells.get(1).getDate();
-        selectedCells.get(0).setRangeState(MonthCellDescriptor.RangeState.FIRST);
-        selectedCells.get(1).setRangeState(MonthCellDescriptor.RangeState.LAST);
+        selectedCells.get(0).setRangeState(RangeState.FIRST);
+        selectedCells.get(1).setRangeState(RangeState.LAST);
 
         // fill in the Middle days && remove prior date selections
         for (List<List<MonthCellDescriptor>> month : cells) {
@@ -673,7 +679,7 @@ public class CalendarPickerView extends ListView {
                   && singleCell.isSelectable()) {
                 singleCell.setSelected(true);
 
-                singleCell.setRangeState(MonthCellDescriptor.RangeState.MIDDLE);
+                singleCell.setRangeState(RangeState.MIDDLE);
                 selectedCells.add(singleCell);
               }
             }
@@ -846,14 +852,14 @@ public class CalendarPickerView extends ListView {
         boolean isHighlighted = containsDate(highlightedCals, cal);
         int value = cal.get(DAY_OF_MONTH);
 
-        MonthCellDescriptor.RangeState rangeState = MonthCellDescriptor.RangeState.NONE;
+        RangeState rangeState = RangeState.NONE;
         if (selectedCals.size() > 1) {
           if (sameDate(minSelectedCal, cal)) {
-            rangeState = MonthCellDescriptor.RangeState.FIRST;
+            rangeState = RangeState.FIRST;
           } else if (sameDate(maxDate(selectedCals), cal)) {
-            rangeState = MonthCellDescriptor.RangeState.LAST;
+            rangeState = RangeState.LAST;
           } else if (betweenDates(cal, minSelectedCal, maxSelectedCal)) {
-            rangeState = MonthCellDescriptor.RangeState.MIDDLE;
+            rangeState = RangeState.MIDDLE;
           }
         }
 
@@ -966,9 +972,12 @@ public class CalendarPickerView extends ListView {
    * @see #setOnDateSelectedListener(OnDateSelectedListener)
    */
   public interface OnDateSelectedListener {
-    void onDateSelected(Date date);
+    void onDateSelected(Date date, RangeState rangeState);
 
     void onDateUnselected(Date date);
+
+    void onRangeModified(Date date, RangeState rangeState);
+
   }
 
   /**

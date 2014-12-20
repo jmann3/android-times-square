@@ -38,7 +38,7 @@ public class CalendarRowView extends ViewGroup {
   private int priorTouchedCell = -1;
   private boolean userPanned = false;
 
-  private MonthCellDescriptor.RangeState cellState = MonthCellDescriptor.RangeState.NONE;
+  private RangeState cellState = RangeState.NONE;
 
   public CalendarRowView(Context context, AttributeSet attrs) {
     super(context, attrs);
@@ -151,7 +151,7 @@ public class CalendarRowView extends ViewGroup {
 
                         if (LibUtils.isPointInsideView(fingerX, fingerY, child)) {
                             if (listener != null && child == initialView)
-                                listener.handleClick((MonthCellDescriptor) initialView.getTag());
+                                listener.handleClick((MonthCellDescriptor) initialView.getTag(), false, null);
 
                             break;
                         }
@@ -225,7 +225,7 @@ public class CalendarRowView extends ViewGroup {
                 priorTouchedCell = touchedCell;
 
                 // only track movement if touched down in First or Last cell
-                if (cellState == MonthCellDescriptor.RangeState.FIRST && touchedCell != -1) {
+                if (cellState == RangeState.FIRST && touchedCell != -1) {
 
                     // check have not reached Last and have not hit Closed Day or prior month
                     if (fingerX <= getLastLeft() && isSelectable) {
@@ -241,7 +241,7 @@ public class CalendarRowView extends ViewGroup {
                         if (currentVelocity < 0) {
 
                             if (touchedCell + 1 < getChildCount()) {
-                                if (((MonthCellDescriptor) getChildAt(touchedCell + 1).getTag()).getRangeState() != MonthCellDescriptor.RangeState.LAST)
+                                if (((MonthCellDescriptor) getChildAt(touchedCell + 1).getTag()).getRangeState() != RangeState.LAST)
                                     ((TextView) getChildAt(touchedCell + 1)).setBackgroundResource(R.color.calendar_selected_range_bg);
                             }
 
@@ -260,7 +260,7 @@ public class CalendarRowView extends ViewGroup {
                     }
 
 
-                } else if (cellState == MonthCellDescriptor.RangeState.LAST) {
+                } else if (cellState == RangeState.LAST) {
 
                     // check have not reached First
                     if (fingerX >= getFirstRight() && isSelectable) {
@@ -283,7 +283,7 @@ public class CalendarRowView extends ViewGroup {
                         } else {
                             // if moving right, prior cell is blue
                             if (touchedCell - 1 >= 0) {
-                                if (((MonthCellDescriptor) getChildAt(touchedCell - 1).getTag()).getRangeState() != MonthCellDescriptor.RangeState.FIRST)
+                                if (((MonthCellDescriptor) getChildAt(touchedCell - 1).getTag()).getRangeState() != RangeState.FIRST)
                                     ((TextView) getChildAt(touchedCell - 1)).setBackgroundResource(R.color.calendar_selected_range_bg);
                             }
 
@@ -313,7 +313,7 @@ public class CalendarRowView extends ViewGroup {
             case MotionEvent.ACTION_UP:
 
                 // if the user has not tried to expand the range by panning
-                if (userPanned == false || (cellState != MonthCellDescriptor.RangeState.FIRST && cellState != MonthCellDescriptor.RangeState.LAST)) {
+                if (userPanned == false || (cellState != RangeState.FIRST && cellState != RangeState.LAST)) {
                     // if position is in same cell as started, then treat as onClick()
 
                     View initialView = getChildAt(touchedCell);
@@ -322,7 +322,7 @@ public class CalendarRowView extends ViewGroup {
 
                         if (LibUtils.isPointInsideView(fingerX, fingerY, child)) {
                             if (listener != null && child == initialView)
-                                listener.handleClick((MonthCellDescriptor) initialView.getTag());
+                                listener.handleClick((MonthCellDescriptor) initialView.getTag(), false, null);
 
                             break;
                         }
@@ -338,7 +338,7 @@ public class CalendarRowView extends ViewGroup {
                 // restore global variables
                 userPanned = false;
                 priorTouchedCell = -1;
-                cellState = MonthCellDescriptor.RangeState.NONE;
+                cellState = RangeState.NONE;
 
                 break;
 
@@ -361,7 +361,7 @@ public class CalendarRowView extends ViewGroup {
         for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
             final View child = getChildAt(c);
 
-            if (((MonthCellDescriptor)child.getTag()).getRangeState() == MonthCellDescriptor.RangeState.LAST) {
+            if (((MonthCellDescriptor)child.getTag()).getRangeState() == RangeState.LAST) {
                 return child.getLeft();
             }
         }
@@ -377,7 +377,7 @@ public class CalendarRowView extends ViewGroup {
         for (int c = 0, numChildren = getChildCount(); c < numChildren; c++) {
             final View child = getChildAt(c);
 
-            if (((MonthCellDescriptor)child.getTag()).getRangeState() == MonthCellDescriptor.RangeState.FIRST) {
+            if (((MonthCellDescriptor)child.getTag()).getRangeState() == RangeState.FIRST) {
                 return child.getLeft() + child.getWidth();
             }
         }
